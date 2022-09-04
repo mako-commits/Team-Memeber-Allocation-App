@@ -1,16 +1,16 @@
-import { useSate } from "react";
+import { useState } from "react";
 
 const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
-  const [groupedEmployees, setGroupData] = useSate(groupTeamMembers());
+  const [groupedEmployees, setGroupedData] = useState(groupTeamMembers());
 
-  const groupTeamMembers = () => {
-    const teams = [];
+  function groupTeamMembers() {
+    var teams = [];
 
     //Team A
-    const teamAMembers = employees.filter(
+    var teamAMembers = employees.filter(
       (employee) => employee.teamName === "TeamA"
     );
-    const teamA = {
+    var teamA = {
       team: "TeamA",
       members: teamAMembers,
       collapsed: selectedTeam === "TeamA" ? false : true,
@@ -18,10 +18,10 @@ const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
     teams.push(teamA);
 
     //Team B
-    const teamBMembers = employees.filter(
+    var teamBMembers = employees.filter(
       (employee) => employee.teamName === "TeamB"
     );
-    const teamB = {
+    var teamB = {
       team: "TeamB",
       members: teamBMembers,
       collapsed: selectedTeam === "TeamB" ? false : true,
@@ -29,10 +29,10 @@ const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
     teams.push(teamB);
 
     //Team C
-    const teamCMembers = employees.filter(
+    var teamCMembers = employees.filter(
       (employee) => employee.teamName === "TeamC"
     );
-    const teamC = {
+    var teamC = {
       team: "TeamC",
       members: teamCMembers,
       collapsed: selectedTeam === "TeamC" ? false : true,
@@ -40,10 +40,10 @@ const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
     teams.push(teamC);
 
     //Team D
-    const teamDMembers = employees.filter(
+    var teamDMembers = employees.filter(
       (employee) => employee.teamName === "TeamD"
     );
-    const teamD = {
+    var teamD = {
       team: "TeamD",
       members: teamDMembers,
       collapsed: selectedTeam === "TeamD" ? false : true,
@@ -51,6 +51,17 @@ const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
     teams.push(teamD);
 
     return teams;
+  }
+
+  const handleTeamClick = (event) => {
+    var newGroupedData = groupedEmployees.map((groupedData) =>
+      groupedData.team === event.currentTarget.id
+        ? { ...groupedData, collapsed: !groupedData.collapsed }
+        : groupedData
+    );
+
+    setGroupedData(newGroupedData);
+    setTeam(event.currentTarget.id);
   };
   return (
     <section>
@@ -61,23 +72,29 @@ const GroupedTeamMembers = ({ setTeam, employees, selectedTeam }) => {
             className="card mt-2"
             style={{ cursor: "pointer" }}
           >
-            <h4 id={item.team} className="card-header text-secondary bg-white">
+            <h4
+              id={item.team}
+              className="card-header text-secondary bg-white"
+              onClick={handleTeamClick}
+            >
               Team Name: {item.team}
             </h4>
             <div
               id={"collapse_" + item.team}
-              className={item.collapsed === true ? "collapsed" : ""}
+              className={item.collapsed === true ? "collapse" : ""}
             >
               <hr />
               {item.members.map((member) => {
                 return (
-                  <div className="mt-2">
+                  <div className="mt-2" key={member.id}>
                     <h5 className="card-title mt-2">
                       <span className="text-dark">
                         Full Name: {member.fullName}
                       </span>
                     </h5>
-                    <p>Designation: {member.designation}</p>
+                    <p className="card-text text-dark mt-2">
+                      <b>Designation:</b> {member.designation}
+                    </p>
                   </div>
                 );
               })}

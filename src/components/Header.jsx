@@ -3,7 +3,8 @@ const Header = ({ selectedTeam, teamMemberCount }) => {
     <header>
       <h1>Team Member Allocation</h1>
       <h3>
-        {selectedTeam} has {teamMemberCount} Members
+        {selectedTeam} has {teamMemberCount}{" "}
+        {teamMemberCount === 1 ? "member" : "members"}
       </h3>
     </header>
   );
