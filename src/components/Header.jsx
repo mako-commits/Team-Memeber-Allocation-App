@@ -1,4 +1,12 @@
-const Header = ({ selectedTeam, teamMemberCount }) => {
+import { useContext } from "react";
+import DataContext from "../../store/data-context";
+
+const Header = () => {
+  const { selectedTeam, employees } = useContext(DataContext);
+  const teamMemberCount = employees.filter(
+    (employee) => employee.teamName === selectedTeam
+  ).length;
+
   return (
     <header>
       <h1>Team Member Allocation</h1>

@@ -1,24 +1,12 @@
 import TeamMembers from "./TeamMembers";
 import Teams from "./Teams";
 
-const Employees = ({
-  employees,
-  handleEmployeeCardClick,
-  handleTeamSelectionChange,
-  selectedTeam,
-}) => {
+const Employees = () => {
   return (
     <main>
-      <Teams
-        handleTeamSelectionChange={handleTeamSelectionChange}
-        selectedTeam={selectedTeam}
-      />
+      <Teams />
       <div className="card-collections">
-        <TeamMembers
-          employees={employees}
-          handleEmployeeCardClick={handleEmployeeCardClick}
-          selectedTeam={selectedTeam}
-        />
+        <TeamMembers />
       </div>
     </main>
   );

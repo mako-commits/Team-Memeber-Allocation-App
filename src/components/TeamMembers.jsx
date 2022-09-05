@@ -1,12 +1,12 @@
 import TeamMemberCard from "./TeamMemberCard";
+import { useContext } from "react";
+import DataContext from "../../store/data-context";
 
-const TeamMembers = ({ selectedTeam, employees, handleEmployeeCardClick }) => {
+const TeamMembers = () => {
+  const { employees } = useContext(DataContext);
+
   return employees.map((employee) => (
-    <TeamMemberCard
-      handleEmployeeCardClick={handleEmployeeCardClick}
-      selectedTeam={selectedTeam}
-      employee={employee}
-    />
+    <TeamMemberCard key={employee.id} employee={employee} />
   ));
 };
 
